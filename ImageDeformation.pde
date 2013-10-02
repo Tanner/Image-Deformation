@@ -48,7 +48,7 @@ void draw() {
 }
 
 void mousePressed() {
-  if (mode == EditMode.EDIT_POINTS) {
+  if (mode == EditMode.EDIT_POINTS && selectedGrid != null) {
     selectedPoint = selectedGrid.getPointClosestToPoint(new Point(mouseX, mouseY));
   }
 }
