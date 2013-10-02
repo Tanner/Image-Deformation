@@ -1,6 +1,7 @@
 class Grid {
   int cells;
   Point[][] points;
+  Point[][] textureMappingPoints;
   boolean selected;
   
   color c;
@@ -56,9 +57,11 @@ class Grid {
   }
   
   void drawImage() {
-    float in = 1.0 / (cells - 1);
+    if (image == null || textureMappingPoints == null) {
+      return;
+    }
     
-    textureMode(NORMAL);       // texture parameters in [0,1]x[0,1]
+    textureMode(NORMAL);
     beginShape(QUADS);
     
     for (int row = 0; row < cells - 1; row++) {
@@ -67,10 +70,13 @@ class Grid {
       
       for (int col = 0; col < cells; col++) {
         Point a = points[row][col];
-        Point b = points[row + 1][col];
+        Point aTexture = textureMappingPoints[row][col];
         
-        vertex(a.x, a.y, in * col, in * row);
-        vertex(b.x, b.y, in * col, in * (row + 1));
+        Point b = points[row + 1][col];
+        Point bTexture = textureMappingPoints[row + 1][col];
+        
+        vertex(a.x, a.y, aTexture.x, aTexture.y);
+        vertex(b.x, b.y, bTexture.x, bTexture.y);
       }
       
       endShape();

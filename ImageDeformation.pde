@@ -35,19 +35,41 @@ void draw() {
   background(#FFFFFF);
   stroke(#000000);
   fill(#000000);
-  
+
   image(image, PADDING, PADDING);
   
+  Point[][] points = textureMappingPoints(baseGrid, image);
+  gridOne.textureMappingPoints = points;
+  gridTwo.textureMappingPoints = points;
+  gridThree.textureMappingPoints = points;
+
   baseGrid.drawGrid();
-  
+
   gridOne.drawGrid();
   gridOne.drawImage();
-  
+
   gridTwo.drawGrid();
   gridTwo.drawImage();
-  
+
   gridThree.drawGrid();
   gridThree.drawImage();
+}
+
+Point[][] textureMappingPoints(Grid grid, PImage image) {
+  Point[][] points = new Point[grid.cells][grid.cells];
+
+  for (int row = 0; row < grid.cells; row++) {
+    for (int col = 0; col < grid.cells; col++) {
+      Point point = grid.points[row][col];
+      
+      float x = map(point.x, PADDING, PADDING + image.width, 0.0, 1.0);
+      float y = map(point.y, PADDING, PADDING + image.height, 0.0, 1.0);
+  
+      points[row][col] = new Point(x, y);
+    }
+  }
+
+  return points;
 }
 
 void mousePressed() {
@@ -127,3 +149,4 @@ void selectGrid(Grid grid, boolean select) {
     grid.deselect();
   }
 }
+
