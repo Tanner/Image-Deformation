@@ -51,6 +51,13 @@ void mouseDragged() {
 }
 
 void keyPressed() {
+  // If key is a number, then it is a grid selection key...
+  if (key >= 48 && key <= 57) {
+    gridKeyPressed();
+  }
+}
+
+void gridKeyPressed() {
   // Deselect all grids first
   selectGrid(baseGrid, false);
   selectGrid(gridOne, false);
