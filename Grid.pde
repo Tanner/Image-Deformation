@@ -8,13 +8,13 @@ class Grid {
     points = new ArrayList<Point>();
     cells = n;
     
-    float horizontalSpacing = w / n;
-    float verticalSpacing = h / n;
-    
+    float horizontalSpacing = w / (n - 1);
+    float verticalSpacing = h / (n - 1);
+        
     for (int i = 0; i < n; i++) {
-      for (int j = 0; j < n; j++) {
-        float pointX = horizontalSpacing * j / (n - 1);
-        float pointY = verticalSpacing * i / (n - 1);
+      for (int j = 0; j < n; j++) {        
+        float pointX = horizontalSpacing * j + x;
+        float pointY = verticalSpacing * i + y;
         
         points.add(new Point(pointX, pointY));
       }
