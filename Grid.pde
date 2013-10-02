@@ -83,7 +83,16 @@ class Grid {
   
   void moveByMouseDelta() {
     for (Point p : points) {
-      p.moveByMouseDelta();
+      p.translate(mouseX - pmouseX, mouseY - pmouseY);
+    }
+  }
+  
+  void rotateByMouseDelta() {
+    Point centroid = centroidOfPoints(points);
+    float angle = new Vector(centroid, new Point(mouseX, mouseY)).angle(new Vector(centroid, new Point(pmouseX, pmouseY)));
+    
+    for (Point p : points) {
+      p.rotateAroundPoint(angle, centroid);
     }
   }
   
