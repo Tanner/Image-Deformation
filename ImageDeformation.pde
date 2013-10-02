@@ -1,7 +1,10 @@
+PImage image;
 
 void setup() {
   size(600, 600);
   smooth();
+  
+  image = loadImage("picture.jpg");
 }
 
 void draw() {
