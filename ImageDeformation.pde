@@ -79,18 +79,18 @@ void keyPressed() {
   } else {
     // Must be a function (transformation) key
     switch (Character.toLowerCase(key)) {
-      case 'e':
-        mode = EditMode.EDIT_POINTS;
-        break;
-      case 't':
-        mode = EditMode.TRANSLATE;
-        break;
-      case 'r':
-        mode = EditMode.ROTATE;
-        break;
-      case 's':
-        mode = EditMode.SCALE;
-        break;
+    case 'e':
+      mode = EditMode.EDIT_POINTS;
+      break;
+    case 't':
+      mode = EditMode.TRANSLATE;
+      break;
+    case 'r':
+      mode = EditMode.ROTATE;
+      break;
+    case 's':
+      mode = EditMode.SCALE;
+      break;
     }
   }
 }
@@ -101,20 +101,20 @@ void gridKeyPressed() {
   selectGrid(gridOne, false);
   selectGrid(gridTwo, false);
   selectGrid(gridThree, false);
-  
+
   switch (Character.toLowerCase(key)) {
-    case '0':
-      selectGrid(baseGrid, true);
-      break;
-    case '1':
-      selectGrid(gridOne, true);
-      break;
-    case '2':
-      selectGrid(gridTwo, true);
-      break;
-    case '3':
-      selectGrid(gridThree, true);
-      break;
+  case '0':
+    selectGrid(baseGrid, true);
+    break;
+  case '1':
+    selectGrid(gridOne, true);
+    break;
+  case '2':
+    selectGrid(gridTwo, true);
+    break;
+  case '3':
+    selectGrid(gridThree, true);
+    break;
   }
 }
 
