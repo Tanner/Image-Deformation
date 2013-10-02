@@ -7,6 +7,10 @@ class Point {
     this.y = y;
   }
   
+  void lineTo(Point b) {
+    line(this.x, this.y, b.x, b.y);
+  }
+  
   void display() {
     ellipse(x,
             y,
