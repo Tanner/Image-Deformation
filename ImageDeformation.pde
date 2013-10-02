@@ -1,6 +1,7 @@
 PImage image;
 
 Grid selectedGrid;
+EditMode mode;
 
 Grid baseGrid;
 Grid gridOne, gridTwo, gridThree;
@@ -22,8 +23,9 @@ void setup() {
   gridThree = new Grid(10, 10, imageWidth, imageHeight, 10, #0000FF);
   
   baseGrid.image = image;
-    
+  
   selectGrid(baseGrid, true);
+  mode = EditMode.EDIT_POINTS;
 }
 
 void draw() {
@@ -48,12 +50,38 @@ void mousePressed() {
 }
 
 void mouseDragged() {
+  if (mode == EditMode.EDIT_POINTS) {
+    // Move around an individual point
+  } else if (mode == EditMode.TRANSLATE) {
+    // Translate the points
+    selectedGrid.moveByMouseDelta();
+  } else if (mode == EditMode.ROTATE) {
+    // Rotate the grid
+  } else if (mode == EditMode.SCALE) {
+    // Scale the grid
+  }
 }
 
 void keyPressed() {
   // If key is a number, then it is a grid selection key...
   if (key >= 48 && key <= 57) {
     gridKeyPressed();
+  } else {
+    // Must be a function (transformation) key
+    switch (Character.toLowerCase(key)) {
+      case 'e':
+        mode = EditMode.EDIT_POINTS;
+        break;
+      case 't':
+        mode = EditMode.TRANSLATE;
+        break;
+      case 'r':
+        mode = EditMode.ROTATE;
+        break;
+      case 's':
+        mode = EditMode.SCALE;
+        break;
+    }
   }
 }
 

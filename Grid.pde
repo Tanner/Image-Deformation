@@ -81,6 +81,12 @@ class Grid {
     }
   }
   
+  void moveByMouseDelta() {
+    for (Point p : points) {
+      p.moveByMouseDelta();
+    }
+  }
+  
   void select() {
     selected = true;
   }

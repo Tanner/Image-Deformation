@@ -71,6 +71,25 @@ class Point {
     return (p.y - this.y) / (p.x - this.x);
   }
   
+  void moveByMouseDelta() {
+    this.x += mouseX - pmouseX;
+    this.y += mouseY - pmouseY;
+  }
+  
+  Point centroidOfPoints(Point[] points) {
+    float x = 0;
+    float y = 0;
+    
+    for (int i = 0; i < points.lenght; i++) {
+      Point p = points[i];
+      
+      x += p.x;
+      y += p.y;
+    }
+    
+    return new Point(x / points.length, y / points.length);
+  }
+  
   String toString() {
     return String.format("(%f, %f)", x, y);
   }
