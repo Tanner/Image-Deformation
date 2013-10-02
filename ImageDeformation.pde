@@ -6,7 +6,13 @@ void setup() {
   smooth();
   
   image = loadImage("picture.jpg");
-  baseGrid = new Grid(0, 0, image.width, image.height, 10);
+  
+  float ratio = (float) image.width / image.height;
+  
+  float imageHeight = (height / 2);
+  float imageWidth = ratio * imageHeight;
+  
+  baseGrid = new Grid(10, 10, imageWidth, imageHeight, 10);
   
   baseGrid.image = image;
 }
