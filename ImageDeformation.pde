@@ -7,23 +7,25 @@ EditMode mode;
 Grid baseGrid;
 Grid gridOne, gridTwo, gridThree;
 
+final float PADDING = 10;
+final int GRID_SIZE = 100;
+final int GRID_CELLS = 10;
+
 void setup() {
   size(600, 600, P3D);
   smooth();
   
   image = loadImage("picture.jpg");
   
-  float ratio = (float) image.width / image.height;
-  
-  float imageHeight = (height / 2);
-  float imageWidth = ratio * imageHeight;
-  
-  baseGrid = new Grid(10, 10, imageWidth, imageHeight, 10, #FF00FB);
-  gridOne = new Grid(10, 10, imageWidth, imageHeight, 10, #FF0000);
-  gridTwo = new Grid(10, 10, imageWidth, imageHeight, 10, #00FF00);
-  gridThree = new Grid(10, 10, imageWidth, imageHeight, 10, #0000FF);
+  baseGrid = new Grid(PADDING, PADDING, GRID_SIZE, GRID_SIZE, GRID_CELLS, #FF00FB);
+  gridOne = new Grid(PADDING, PADDING, GRID_SIZE, GRID_SIZE, GRID_CELLS, #FF0000);
+  gridTwo = new Grid(PADDING, PADDING, GRID_SIZE, GRID_SIZE, GRID_CELLS, #00FF00);
+  gridThree = new Grid(PADDING, PADDING, GRID_SIZE, GRID_SIZE, GRID_CELLS, #0000FF);
   
   baseGrid.image = image;
+  gridOne.image = image;
+  gridTwo.image = image;
+  gridThree.image = image;
   
   selectGrid(baseGrid, true);
   mode = EditMode.EDIT_POINTS;
@@ -34,8 +36,9 @@ void draw() {
   stroke(#000000);
   fill(#000000);
   
+  image(image, PADDING, PADDING);
+  
   baseGrid.drawGrid();
-  baseGrid.drawImage();
   
   gridOne.drawGrid();
   gridOne.drawImage();
