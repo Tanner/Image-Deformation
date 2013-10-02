@@ -1,12 +1,15 @@
 class Grid {
   int cells;
   ArrayList<Point> points;
+  boolean selected;
   
+  color c;
   PImage image;
   
-  public Grid(float x, float y, float w, float h, int n) {
+  public Grid(float x, float y, float w, float h, int n, color c) {
     points = new ArrayList<Point>();
     cells = n;
+    this.c = c;
     
     float horizontalSpacing = w / (n - 1);
     float verticalSpacing = h / (n - 1);
@@ -22,6 +25,14 @@ class Grid {
   }
   
   void drawGrid() {
+    if (selected) {
+      strokeWeight(3);
+    } else {
+      strokeWeight(1);
+    }
+    
+    stroke(c);
+    
     for (int i = 0; i < cells - 1; i++) {
       for (int j = 0; j < cells - 1; j++) {        
         getPoint(i, j).lineTo(getPoint(i + 1, j));
@@ -68,5 +79,13 @@ class Grid {
     } else {
       return points.get(points.size() - 1);
     }
+  }
+  
+  void select() {
+    selected = true;
+  }
+  
+  void deselect() {
+    selected = false;
   }
 }
