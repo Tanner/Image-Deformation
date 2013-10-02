@@ -60,6 +60,7 @@ void mouseDragged() {
     selectedGrid.rotateByMouseDelta();
   } else if (mode == EditMode.SCALE) {
     // Scale the grid
+    selectedGrid.scaleByMouseDelta();
   }
 }
 

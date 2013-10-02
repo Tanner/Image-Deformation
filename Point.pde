@@ -86,6 +86,11 @@ class Point {
     this.y = p.y - s * dx + c * dy;
   }
   
+  void scaleAroundPoint(float s, Point p) {
+    this.x += s * (p.x - x);
+    this.y += s * (p.y - y);
+  }
+  
   String toString() {
     return String.format("(%f, %f)", x, y);
   }
