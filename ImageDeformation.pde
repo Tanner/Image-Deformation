@@ -1,6 +1,7 @@
 PImage image;
 
 Grid selectedGrid;
+Point selectedPoint;
 EditMode mode;
 
 Grid baseGrid;
@@ -47,11 +48,15 @@ void draw() {
 }
 
 void mousePressed() {
+  if (mode == EditMode.EDIT_POINTS) {
+    selectedPoint = selectedGrid.getPointClosestToPoint(new Point(mouseX, mouseY));
+  }
 }
 
 void mouseDragged() {
   if (mode == EditMode.EDIT_POINTS) {
     // Move around an individual point
+    selectedPoint.translate(mouseX - pmouseX, mouseY - pmouseY);
   } else if (mode == EditMode.TRANSLATE) {
     // Translate the points
     selectedGrid.moveByMouseDelta();

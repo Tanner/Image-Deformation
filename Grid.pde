@@ -108,6 +108,20 @@ class Grid {
     }
   }
   
+  Point getPointClosestToPoint(Point c) {
+    Point closestPoint = null;
+    float closestPointDistance = Float.MAX_VALUE;
+    
+    for (Point p : points) {
+      if (p.distance(c) < closestPointDistance) {
+        closestPoint = p;
+        closestPointDistance = p.distance(c);
+      }
+    }
+    
+    return closestPoint;
+  }
+  
   void select() {
     selected = true;
   }
