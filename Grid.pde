@@ -35,8 +35,8 @@ class Grid {
     stroke(c);
     for (int row = 0; row < cells; row++) {
       for (int col = 0; col < cells; col++) {
-        int nextRow = row + 1 < cells ? row + 1 : 0;
-        int nextCol = col + 1 < cells ? col + 1 : 0;
+        int nextRow = row + 1 < cells ? row + 1 : cells - 1;
+        int nextCol = col + 1 < cells ? col + 1 : cells - 1;
         
         points[row][col].lineTo(points[nextRow][col]);
         points[row][col].lineTo(points[row][nextCol]);
@@ -44,13 +44,13 @@ class Grid {
     }
     
     for (int row = 0; row < cells - 1; row++) {
-      int nextRow = row + 1 < cells ? row + 1 : 0;
+      int nextRow = row + 1 < cells ? row + 1 : cells - 1;
       
       points[row][cells - 1].lineTo(points[nextRow][cells - 1]);
     }
     
     for (int col = 0; col < cells - 1; col++) {
-      int nextCol = col + 1 < cells ? col + 1 : 0;
+      int nextCol = col + 1 < cells ? col + 1 : cells - 1;
       
       points[cells - 1][col].lineTo(points[cells - 1][nextCol]);
     }
