@@ -1,25 +1,25 @@
 class Grid {
   int cells;
-  ArrayList<Point> points;
+  Point[][] points;
   boolean selected;
   
   color c;
   PImage image;
   
   public Grid(float x, float y, float w, float h, int n, color c) {
-    points = new ArrayList<Point>();
+    points = new Point[n][n];
     cells = n;
     this.c = c;
     
     float horizontalSpacing = w / (n - 1);
     float verticalSpacing = h / (n - 1);
         
-    for (int i = 0; i < n; i++) {
-      for (int j = 0; j < n; j++) {        
-        float pointX = horizontalSpacing * j + x;
-        float pointY = verticalSpacing * i + y;
+    for (int row = 0; row < n; row++) {
+      for (int col = 0; col < n; col++) {        
+        float pointX = horizontalSpacing * col + x;
+        float pointY = verticalSpacing * row + y;
         
-        points.add(new Point(pointX, pointY));
+        points[row][col] = new Point(pointX, pointY);
       }
     }
   }
@@ -32,20 +32,26 @@ class Grid {
     }
     
     stroke(c);
-    
-    for (int i = 0; i < cells - 1; i++) {
-      for (int j = 0; j < cells - 1; j++) {        
-        getPoint(i, j).lineTo(getPoint(i + 1, j));
-        getPoint(i, j).lineTo(getPoint(i, j + 1));
+    for (int row = 0; row < cells; row++) {
+      for (int col = 0; col < cells; col++) {
+        int nextRow = row + 1 < cells ? row + 1 : 0;
+        int nextCol = col + 1 < cells ? col + 1 : 0;
+        
+        points[row][col].lineTo(points[nextRow][col]);
+        points[row][col].lineTo(points[row][nextCol]);
       }
     }
     
-    for (int i = 0; i < cells - 1; i++) {
-      getPoint(i, cells - 1).lineTo(getPoint(i + 1, cells - 1));
+    for (int row = 0; row < cells - 1; row++) {
+      int nextRow = row + 1 < cells ? row + 1 : 0;
+      
+      points[row][cells - 1].lineTo(points[nextRow][cells - 1]);
     }
     
-    for (int i = 0; i < cells - 1; i++) {
-      getPoint(cells - 1, i).lineTo(getPoint(cells - 1, i + 1));
+    for (int col = 0; col < cells - 1; col++) {
+      int nextCol = col + 1 < cells ? col + 1 : 0;
+      
+      points[cells - 1][col].lineTo(points[cells - 1][nextCol]);
     }
   }
   
@@ -55,35 +61,27 @@ class Grid {
     textureMode(NORMAL);       // texture parameters in [0,1]x[0,1]
     beginShape(QUADS);
     
-    for (int i = 0; i < cells - 1; i++) {
+    for (int row = 0; row < cells - 1; row++) {
       beginShape(QUAD_STRIP);
       texture(image);
       
-      for (int j = 0; j < cells; j++) {
-        Point a = getPoint(i, j);
-        Point b = getPoint(i + 1, j);
+      for (int col = 0; col < cells; col++) {
+        Point a = points[row][col];
+        Point b = points[row + 1][col];
         
-        vertex(a.x, a.y, in * j, in * i);
-        vertex(b.x, b.y, in * j, in * (i + 1));
+        vertex(a.x, a.y, in * col, in * row);
+        vertex(b.x, b.y, in * col, in * (row + 1));
       }
       
       endShape();
     }
   }
   
-  Point getPoint(int row, int column) {
-    int index = row * cells + column;
-        
-    if (index < points.size()) {
-      return points.get(index);
-    } else {
-      return points.get(points.size() - 1);
-    }
-  }
-  
   void moveByMouseDelta() {
-    for (Point p : points) {
-      p.translate(mouseX - pmouseX, mouseY - pmouseY);
+    for (int row = 0; row < cells; row++) {
+      for (int col = 0; col < cells; col++) {  
+        points[row][col].translate(mouseX - pmouseX, mouseY - pmouseY);
+      }
     }
   }
   
@@ -92,8 +90,10 @@ class Grid {
     
     float angle = new Vector(centroid, new Point(mouseX, mouseY)).angle(new Vector(centroid, new Point(pmouseX, pmouseY)));
     
-    for (Point p : points) {
-      p.rotateAroundPoint(angle, centroid);
+    for (int row = 0; row < cells; row++) {
+      for (int col = 0; col < cells; col++) {
+        points[row][col].rotateAroundPoint(angle, centroid);
+      }
     }
   }
   
@@ -102,9 +102,11 @@ class Grid {
     float centroidToMouseDistance = centroid.distance(new Point(mouseX, mouseY));
     float centroidToPastMouseDistance = centroid.distance(new Point(pmouseX, pmouseY));
     float scale = (centroidToPastMouseDistance - centroidToMouseDistance) / centroidToPastMouseDistance;
-
-    for (Point p : points) {
-      p.scaleAroundPoint(scale, centroid);
+    
+    for (int row = 0; row < cells; row++) {
+      for (int col = 0; col < cells; col++) {
+        points[row][col].scaleAroundPoint(scale, centroid);
+      }
     }
   }
   
@@ -112,10 +114,14 @@ class Grid {
     Point closestPoint = null;
     float closestPointDistance = Float.MAX_VALUE;
     
-    for (Point p : points) {
-      if (p.distance(c) < closestPointDistance) {
-        closestPoint = p;
-        closestPointDistance = p.distance(c);
+    for (int row = 0; row < cells; row++) {
+      for (int col = 0; col < cells; col++) {
+        Point point = points[row][col];
+        
+        if (point.distance(c) < closestPointDistance) {
+          closestPoint = point;
+          closestPointDistance = point.distance(c);
+        }
       }
     }
     
