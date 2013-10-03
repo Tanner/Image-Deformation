@@ -17,10 +17,22 @@ void setup() {
   
   image = loadImage("picture.jpg");
   
-  baseGrid = new Grid(PADDING, PADDING, GRID_SIZE, GRID_SIZE, GRID_CELLS, #FF00FB);
-  gridOne = new Grid(PADDING, PADDING, GRID_SIZE, GRID_SIZE, GRID_CELLS, #FF0000);
-  gridTwo = new Grid(PADDING, PADDING, GRID_SIZE, GRID_SIZE, GRID_CELLS, #00FF00);
-  gridThree = new Grid(PADDING, PADDING, GRID_SIZE, GRID_SIZE, GRID_CELLS, #0000FF);
+  float x = PADDING;
+  float y = PADDING;
+  
+  baseGrid = new Grid(x, y, GRID_SIZE, GRID_SIZE, GRID_CELLS, #FF00FB);
+  
+  x += image.width + PADDING;
+  
+  gridOne = new Grid(x, y, GRID_SIZE, GRID_SIZE, GRID_CELLS, #FF0000);
+  
+  y += GRID_SIZE + PADDING;
+  
+  gridTwo = new Grid(x, y, GRID_SIZE, GRID_SIZE, GRID_CELLS, #00FF00);
+  
+  y += GRID_SIZE + PADDING;
+  
+  gridThree = new Grid(x, y, GRID_SIZE, GRID_SIZE, GRID_CELLS, #0000FF);
   
   baseGrid.image = image;
   gridOne.image = image;
