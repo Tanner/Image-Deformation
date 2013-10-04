@@ -116,6 +116,44 @@ class Grid {
     }
   }
   
+  void setShape(Grid grid) {
+    Point[] extremes = extremes();
+    Point[] gridExtremes = grid.extremes();
+    
+    if (cells != grid.cells) {
+      return;
+    }
+    
+    for (int row = 0; row < cells; row++) {
+      for (int col = 0; col < cells; col++) {
+        Point point = grid.points[row][col];
+        
+        points[row][col] = new Point(point.x - gridExtremes[0].x + extremes[0].x, point.y - gridExtremes[0].y + extremes[0].y);
+      }
+    }
+  }
+  
+  Point[] extremes() {
+    Point[] extremes = new Point[2];
+    
+    extremes[0] = new Point(Float.MAX_VALUE, Float.MAX_VALUE); // Min
+    extremes[1] = new Point(Float.MIN_VALUE, Float.MIN_VALUE); // Max
+    
+    for (int row = 0; row < cells; row++) {
+      for (int col = 0; col < cells; col++) {
+        Point point = points[row][col];
+        
+        extremes[0].x = min(point.x, extremes[0].x);
+        extremes[0].y = min(point.y, extremes[0].y);
+        
+        extremes[1].x = max(point.x, extremes[1].x);
+        extremes[1].y = max(point.y, extremes[1].y);
+      }
+    }
+    
+    return extremes;
+  }
+  
   Point getPointClosestToPoint(Point c) {
     Point closestPoint = null;
     float closestPointDistance = Float.MAX_VALUE;

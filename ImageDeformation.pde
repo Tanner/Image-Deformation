@@ -125,6 +125,10 @@ void keyPressed() {
     case 's':
       mode = EditMode.SCALE;
       break;
+    case '=':
+      if (selectedGrid != null) {
+        selectedGrid.setShape(baseGrid);
+      }
     }
   }
 }
