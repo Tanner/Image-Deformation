@@ -6,6 +6,7 @@ EditMode mode;
 
 Grid baseGrid;
 Grid gridOne, gridTwo, gridThree;
+NevilleGrid nevilleGrid;
 
 final float PADDING = 10;
 final int GRID_SIZE = 100;
@@ -39,6 +40,9 @@ void setup() {
   gridTwo.image = image;
   gridThree.image = image;
   
+  nevilleGrid = new NevilleGrid(gridOne, gridTwo, gridThree, #DDDDDD);
+  nevilleGrid.grid.image = image;
+  
   selectGrid(baseGrid, true);
   mode = EditMode.EDIT_POINTS;
 }
@@ -54,6 +58,8 @@ void draw() {
   gridOne.textureMappingPoints = points;
   gridTwo.textureMappingPoints = points;
   gridThree.textureMappingPoints = points;
+  
+  nevilleGrid.grid.textureMappingPoints = points;
 
   baseGrid.drawGrid();
 
@@ -65,6 +71,9 @@ void draw() {
 
   gridThree.drawGrid();
   gridThree.drawImage();
+  
+  nevilleGrid.drawGrid();
+  nevilleGrid.drawImage();
 }
 
 Point[][] textureMappingPoints(Grid grid, PImage image) {
@@ -103,6 +112,9 @@ void mouseDragged() {
   } else if (mode == EditMode.SCALE) {
     // Scale the grid
     selectedGrid.scaleByMouseDelta();
+  } else if (mode == EditMode.TIME_SHIFT) {
+    // Change the time for the Neville curve
+    nevilleGrid.time += 2.0 * float(mouseX - pmouseX) / width;
   }
 }
 
@@ -129,6 +141,10 @@ void keyPressed() {
       if (selectedGrid != null) {
         selectedGrid.setShape(baseGrid);
       }
+      break;
+    case '.':
+    mode = EditMode.TIME_SHIFT;
+    break;
     }
   }
 }

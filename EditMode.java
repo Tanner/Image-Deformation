@@ -3,5 +3,6 @@ enum EditMode {
   EDIT_POINTS,
   TRANSLATE,
   ROTATE,
-  SCALE
+  SCALE,
+  TIME_SHIFT
 };

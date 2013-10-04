@@ -91,6 +91,10 @@ class Point {
     this.y += s * (p.y - y);
   }
   
+  Point linearInterpolationToPoint(Point end, float time) {
+    return new Point(x + time * (end.x - x), y + time * (end.y - y));
+  }
+  
   String toString() {
     return String.format("(%f, %f)", x, y);
   }
