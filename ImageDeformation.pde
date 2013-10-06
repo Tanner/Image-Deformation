@@ -10,6 +10,7 @@ NevilleGrid nevilleGrid;
 
 boolean drawGrid;
 boolean drawImage;
+boolean drawKeyframe;
 
 final float PADDING = 10;
 final int GRID_SIZE = 100;
@@ -23,6 +24,7 @@ void setup() {
   
   drawGrid = true;
   drawImage = true;
+  drawKeyframe = true;
   
   float x = PADDING;
   float y = PADDING;
@@ -75,7 +77,10 @@ void draw() {
     gridOne.drawImage();
     gridTwo.drawImage();
     gridThree.drawImage();
-    nevilleGrid.drawImage();
+    
+    if (drawKeyframe) {
+      nevilleGrid.drawImage();
+    }
   }
 
   if (drawGrid) {
@@ -83,7 +88,10 @@ void draw() {
     gridOne.drawGrid();
     gridTwo.drawGrid();
     gridThree.drawGrid();
-    nevilleGrid.drawGrid();
+    
+    if (drawKeyframe) {
+      nevilleGrid.drawGrid();
+    }
   }
 }
 
@@ -164,6 +172,9 @@ void keyPressed() {
       break;
     case 'p':
       drawImage = !drawImage;
+      break;
+    case 'k':
+      drawKeyframe = !drawKeyframe;
       break;
     }
   }
