@@ -4,5 +4,6 @@ enum EditMode {
   TRANSLATE,
   ROTATE,
   SCALE,
-  TIME_SHIFT
+  TIME_SHIFT,
+  ANIMATION
 };

@@ -72,6 +72,10 @@ void draw() {
   gridThree.drawGrid();
   gridThree.drawImage();
   
+  if (mode == EditMode.ANIMATION) {
+    nevilleGrid.time = (nevilleGrid.time + 0.01 ) % 1.0;
+  }
+  
   nevilleGrid.drawGrid();
   nevilleGrid.drawImage();
 }
@@ -144,6 +148,9 @@ void keyPressed() {
       break;
     case '.':
       mode = EditMode.TIME_SHIFT;
+      break;
+    case 'a':
+      mode = EditMode.ANIMATION;
       break;
     }
   }
