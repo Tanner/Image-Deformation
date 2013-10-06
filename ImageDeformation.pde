@@ -111,6 +111,10 @@ void draw() {
 }
 
 Point[][] textureMappingPoints(Grid grid, PImage image) {
+  if (mapImageUsingBezier && grid instanceof NormalGrid) {
+    grid = ((NormalGrid) grid).bezierGrid;
+  }
+  
   Point[][] points = new Point[grid.lines][grid.lines];
 
   for (int row = 0; row < grid.lines; row++) {
