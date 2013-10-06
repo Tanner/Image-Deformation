@@ -13,7 +13,7 @@ boolean drawImage;
 
 final float PADDING = 10;
 final int GRID_SIZE = 100;
-final int GRID_LINES = 10; // Number of cells is GRID_LINES - 1
+final int GRID_LINES = 11; // Number of cells is GRID_LINES - 1
 
 void setup() {
   size(600, 600, P3D);
