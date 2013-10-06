@@ -18,7 +18,7 @@ boolean mapImageUsingBezier;
 
 final float PADDING = 10;
 final int GRID_SIZE = 100;
-final int GRID_LINES = 11; // Number of cells is GRID_LINES - 1
+final int GRID_LINES = 5; // Number of cells is GRID_LINES - 1
 
 void setup() {
   size(600, 600, P3D);
@@ -78,7 +78,7 @@ void draw() {
   nevilleGrid.grid.textureMappingPoints = points;
 
   if (mode == EditMode.ANIMATION) {
-    nevilleGrid.setTime((nevilleGrid.time + 0.01 ) % 1.0);
+    nevilleGrid.setTime((nevilleGrid.time + 0.01) % 1.0);
   }
 
   if (drawImage) {
@@ -116,8 +116,24 @@ Point[][] textureMappingPoints(Grid grid, PImage image) {
       points[row][col] = new Point(x, y);
     }
   }
-
-  return points;
+  
+  if (mapImageUsingBezier) {
+    Point[][] bezierPoints = new Point[grid.lines][grid.lines];
+    
+    for (int row = 0; row < grid.lines; row++) {
+      for (int s = 0; s < grid.lines; s++) {
+        Point[] pts = points[row];
+        float t = s * (1f / (grid.lines - 1));
+        Point point = bezierPoint(pts[0], pts[1], pts[2], pts[3], pts[4], t);
+                
+        bezierPoints[row][s] = point;
+      }
+    }
+    
+    return bezierPoints;
+  } else {
+    return points;
+  }
 }
 
 void mousePressed() {
