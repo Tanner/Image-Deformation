@@ -1,9 +1,9 @@
-class Grid {
+abstract class Grid {
   int lines;
   Point[][] points;
   Point[][] textureMappingPoints;
   boolean selected;
-  
+    
   color c;
   PImage image;
   
@@ -22,7 +22,7 @@ class Grid {
         
         points[row][col] = new Point(pointX, pointY);
       }
-    }
+    }    
   }
   
   void drawGrid() {
@@ -115,7 +115,7 @@ class Grid {
       for (int col = 0; col < lines; col++) {
         points[row][col].scaleAroundPoint(scale, centroid);
       }
-    }
+    }    
   }
   
   void setShape(Grid grid) {
@@ -132,7 +132,7 @@ class Grid {
         
         points[row][col] = new Point(point.x - gridExtremes[0].x + extremes[0].x, point.y - gridExtremes[0].y + extremes[0].y);
       }
-    }
+    }    
   }
   
   Point[] extremes() {

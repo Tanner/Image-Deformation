@@ -1,11 +1,11 @@
 PImage image;
 
-Grid selectedGrid;
+NormalGrid selectedGrid;
 Point selectedPoint;
 EditMode mode;
 
-Grid baseGrid;
-Grid gridOne, gridTwo, gridThree;
+NormalGrid baseGrid;
+NormalGrid gridOne, gridTwo, gridThree;
 NevilleGrid nevilleGrid;
 
 boolean drawGrid;
@@ -37,19 +37,19 @@ void setup() {
   float x = PADDING;
   float y = PADDING;
   
-  baseGrid = new Grid(x, y, GRID_SIZE, GRID_SIZE, GRID_LINES, #FF00FB);
+  baseGrid = new NormalGrid(x, y, GRID_SIZE, GRID_SIZE, GRID_LINES, #FF00FB);
   
   x += image.width + PADDING;
   
-  gridOne = new Grid(x, y, GRID_SIZE, GRID_SIZE, GRID_LINES, #FF0000);
+  gridOne = new NormalGrid(x, y, GRID_SIZE, GRID_SIZE, GRID_LINES, #FF0000);
   
   y += GRID_SIZE + PADDING;
   
-  gridTwo = new Grid(x, y, GRID_SIZE, GRID_SIZE, GRID_LINES, #00FF00);
+  gridTwo = new NormalGrid(x, y, GRID_SIZE, GRID_SIZE, GRID_LINES, #00FF00);
   
   y += GRID_SIZE + PADDING;
   
-  gridThree = new Grid(x, y, GRID_SIZE, GRID_SIZE, GRID_LINES, #0000FF);
+  gridThree = new NormalGrid(x, y, GRID_SIZE, GRID_SIZE, GRID_LINES, #0000FF);
   
   baseGrid.image = image;
   gridOne.image = image;
@@ -100,6 +100,13 @@ void draw() {
     if (drawKeyframe) {
       nevilleGrid.drawGrid();
     }
+    
+    if (drawBezierGrid) {
+      baseGrid.bezierGrid.drawGrid();
+      gridOne.bezierGrid.drawGrid();
+      gridTwo.bezierGrid.drawGrid();
+      gridThree.bezierGrid.drawGrid();
+    }
   }
 }
 
@@ -117,23 +124,7 @@ Point[][] textureMappingPoints(Grid grid, PImage image) {
     }
   }
   
-  if (mapImageUsingBezier) {
-    Point[][] bezierPoints = new Point[grid.lines][grid.lines];
-    
-    for (int row = 0; row < grid.lines; row++) {
-      for (int s = 0; s < grid.lines; s++) {
-        Point[] pts = points[row];
-        float t = s * (1f / (grid.lines - 1));
-        Point point = bezierPoint(pts[0], pts[1], pts[2], pts[3], pts[4], t);
-                
-        bezierPoints[row][s] = point;
-      }
-    }
-    
-    return bezierPoints;
-  } else {
-    return points;
-  }
+  return points;
 }
 
 void mousePressed() {
@@ -146,6 +137,8 @@ void mouseDragged() {
   if (mode == EditMode.EDIT_POINTS) {
     // Move around an individual point
     selectedPoint.translate(mouseX - pmouseX, mouseY - pmouseY);
+    
+    selectedGrid.bezierGrid.updatePoints();
   } else if (mode == EditMode.TRANSLATE) {
     // Translate the points
     selectedGrid.moveByMouseDelta();
@@ -239,7 +232,7 @@ void gridKeyPressed() {
   }
 }
 
-void selectGrid(Grid grid, boolean select) {
+void selectGrid(NormalGrid grid, boolean select) {
   if (select) {
     selectedGrid = grid;
     grid.select();

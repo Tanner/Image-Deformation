@@ -12,7 +12,7 @@ class NevilleGrid {
       return;
     }
     
-    grid = new Grid(0, 0, 0, 0, a.lines, col);
+    grid = new NormalGrid(0, 0, 0, 0, a.lines, col);
     
     time = 0;
   }
