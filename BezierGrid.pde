@@ -1,10 +1,13 @@
 class BezierGrid extends Grid {
   Grid grid;
+  
+  int samplingRate;
     
   public BezierGrid(Grid g, color col) {
     super(0, 0, 0, 0, g.lines, col);
     
     grid = g;
+    samplingRate = g.lines;
     
     updatePoints();
   }
@@ -19,5 +22,11 @@ class BezierGrid extends Grid {
         points[row][s] = point;
       }
     }
+  }
+  
+  void setSamplingRate(int r) {
+    samplingRate = r;
+    
+    updatePoints();
   }
 }

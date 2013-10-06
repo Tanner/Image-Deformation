@@ -1,6 +1,6 @@
 class NevilleGrid {
   Grid a, b, c;
-  Grid grid;
+  NormalGrid grid;
   float time;
   
   public NevilleGrid(Grid a, Grid b, Grid c, color col) {

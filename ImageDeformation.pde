@@ -12,7 +12,6 @@ boolean drawGrid;
 boolean drawImage;
 boolean drawKeyframe;
 
-int bezierSamplingRate;
 boolean drawBezierGrid;
 boolean mapImageUsingBezier;
 
@@ -30,7 +29,6 @@ void setup() {
   drawImage = true;
   drawKeyframe = true;
   
-  bezierSamplingRate = GRID_LINES - 1;
   drawBezierGrid = false;
   mapImageUsingBezier = false;
   
@@ -198,10 +196,18 @@ void keyPressed() {
       drawKeyframe = !drawKeyframe;
       break;
     case '+':
-      bezierSamplingRate++;
+      baseGrid.setSamplingRate(baseGrid.getSamplingRate() + 1);
+      gridOne.setSamplingRate(gridOne.getSamplingRate() + 1);
+      gridTwo.setSamplingRate(gridTwo.getSamplingRate() + 1);
+      gridThree.setSamplingRate(gridThree.getSamplingRate() + 1);
+      nevilleGrid.grid.setSamplingRate(nevilleGrid.grid.getSamplingRate() + 1);
       break;
     case '-':
-      bezierSamplingRate--;
+      baseGrid.setSamplingRate(baseGrid.getSamplingRate() - 1);
+      gridOne.setSamplingRate(gridOne.getSamplingRate() - 1);
+      gridTwo.setSamplingRate(gridTwo.getSamplingRate() - 1);
+      gridThree.setSamplingRate(gridThree.getSamplingRate() - 1);
+      nevilleGrid.grid.setSamplingRate(nevilleGrid.grid.getSamplingRate() - 1);
       break;
     case 'm':
       drawBezierGrid = !drawBezierGrid;

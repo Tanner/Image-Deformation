@@ -30,4 +30,12 @@ class NormalGrid extends Grid {
     
     bezierGrid.updatePoints();
   }
+  
+  void setSamplingRate(int r) {
+    bezierGrid.setSamplingRate(r);
+  }
+  
+  int getSamplingRate() {
+    return bezierGrid.samplingRate;
+  }
 }
