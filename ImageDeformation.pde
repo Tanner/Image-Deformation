@@ -13,7 +13,7 @@ boolean drawImage;
 
 final float PADDING = 10;
 final int GRID_SIZE = 100;
-final int GRID_CELLS = 10;
+final int GRID_LINES = 10; // Number of cells is GRID_LINES - 1
 
 void setup() {
   size(600, 600, P3D);
@@ -27,19 +27,19 @@ void setup() {
   float x = PADDING;
   float y = PADDING;
   
-  baseGrid = new Grid(x, y, GRID_SIZE, GRID_SIZE, GRID_CELLS, #FF00FB);
+  baseGrid = new Grid(x, y, GRID_SIZE, GRID_SIZE, GRID_LINES, #FF00FB);
   
   x += image.width + PADDING;
   
-  gridOne = new Grid(x, y, GRID_SIZE, GRID_SIZE, GRID_CELLS, #FF0000);
+  gridOne = new Grid(x, y, GRID_SIZE, GRID_SIZE, GRID_LINES, #FF0000);
   
   y += GRID_SIZE + PADDING;
   
-  gridTwo = new Grid(x, y, GRID_SIZE, GRID_SIZE, GRID_CELLS, #00FF00);
+  gridTwo = new Grid(x, y, GRID_SIZE, GRID_SIZE, GRID_LINES, #00FF00);
   
   y += GRID_SIZE + PADDING;
   
-  gridThree = new Grid(x, y, GRID_SIZE, GRID_SIZE, GRID_CELLS, #0000FF);
+  gridThree = new Grid(x, y, GRID_SIZE, GRID_SIZE, GRID_LINES, #0000FF);
   
   baseGrid.image = image;
   gridOne.image = image;
@@ -88,10 +88,10 @@ void draw() {
 }
 
 Point[][] textureMappingPoints(Grid grid, PImage image) {
-  Point[][] points = new Point[grid.cells][grid.cells];
+  Point[][] points = new Point[grid.lines][grid.lines];
 
-  for (int row = 0; row < grid.cells; row++) {
-    for (int col = 0; col < grid.cells; col++) {
+  for (int row = 0; row < grid.lines; row++) {
+    for (int col = 0; col < grid.lines; col++) {
       Point point = grid.points[row][col];
       
       float x = map(point.x, PADDING, PADDING + image.width, 0.0, 1.0);

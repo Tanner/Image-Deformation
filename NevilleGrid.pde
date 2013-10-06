@@ -8,11 +8,11 @@ class NevilleGrid {
     this.b = b;
     this.c = c;
     
-    if (a.cells != b.cells && b.cells != c.cells) {
+    if (a.lines != b.lines && b.lines != c.lines) {
       return;
     }
     
-    grid = new Grid(0, 0, 0, 0, a.cells, col);
+    grid = new Grid(0, 0, 0, 0, a.lines, col);
     
     time = 0;
   }
@@ -29,8 +29,8 @@ class NevilleGrid {
     time = t;
     
     // Neville's Curve implementation from Lecture 7 notes page 5 section 3.4.
-    for (int row = 0; row < grid.cells; row++) {
-      for (int col = 0; col < grid.cells; col++) {
+    for (int row = 0; row < grid.lines; row++) {
+      for (int col = 0; col < grid.lines; col++) {
         Point aPoint = a.points[row][col];
         Point bPoint = b.points[row][col];
         Point cPoint = c.points[row][col];
