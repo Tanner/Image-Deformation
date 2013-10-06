@@ -8,6 +8,8 @@ Grid baseGrid;
 Grid gridOne, gridTwo, gridThree;
 NevilleGrid nevilleGrid;
 
+boolean drawImage;
+
 final float PADDING = 10;
 final int GRID_SIZE = 100;
 final int GRID_CELLS = 10;
@@ -17,6 +19,8 @@ void setup() {
   smooth();
   
   image = loadImage("picture.jpg");
+  
+  drawImage = true;
   
   float x = PADDING;
   float y = PADDING;
@@ -61,23 +65,26 @@ void draw() {
   
   nevilleGrid.grid.textureMappingPoints = points;
 
+  if (drawImage) {
+    gridOne.drawImage();
+    gridTwo.drawImage();
+    gridThree.drawImage();
+    nevilleGrid.drawImage();
+  }
+
   baseGrid.drawGrid();
 
   gridOne.drawGrid();
-  gridOne.drawImage();
 
   gridTwo.drawGrid();
-  gridTwo.drawImage();
 
   gridThree.drawGrid();
-  gridThree.drawImage();
   
   if (mode == EditMode.ANIMATION) {
     nevilleGrid.time = (nevilleGrid.time + 0.01 ) % 1.0;
   }
   
   nevilleGrid.drawGrid();
-  nevilleGrid.drawImage();
 }
 
 Point[][] textureMappingPoints(Grid grid, PImage image) {
@@ -151,6 +158,9 @@ void keyPressed() {
       break;
     case 'a':
       mode = EditMode.ANIMATION;
+      break;
+    case 'p':
+      drawImage = !drawImage;
       break;
     }
   }
