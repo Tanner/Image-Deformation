@@ -1,4 +1,25 @@
 
+Point bezierPoint(Point a, Point b, Point c, float t) {
+  Point p = a.linearInterpolationToPoint(b, t);
+  Point q = b.linearInterpolationToPoint(c, t);
+  
+  return p.linearInterpolationToPoint(q, t);
+}
+
+Point bezierPoint(Point a, Point b, Point c, Point d, float t) {
+  Point p = bezierPoint(a, b, c, t);
+  Point q = bezierPoint(b, c, d, t);
+  
+  return p.linearInterpolationToPoint(q, t);
+}
+
+Point bezierPoint(Point a, Point b, Point c, Point d, Point e, float t) {
+  Point p = bezierPoint(a, b, c, t);
+  Point q = bezierPoint(c, d, e, t);
+  
+  return p.linearInterpolationToPoint(q, t);
+}
+
 class Point {
   float x, y;
   
