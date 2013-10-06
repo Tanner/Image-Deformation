@@ -8,6 +8,7 @@ Grid baseGrid;
 Grid gridOne, gridTwo, gridThree;
 NevilleGrid nevilleGrid;
 
+boolean drawGrid;
 boolean drawImage;
 
 final float PADDING = 10;
@@ -20,6 +21,7 @@ void setup() {
   
   image = loadImage("picture.jpg");
   
+  drawGrid = true;
   drawImage = true;
   
   float x = PADDING;
@@ -65,6 +67,10 @@ void draw() {
   
   nevilleGrid.grid.textureMappingPoints = points;
 
+  if (mode == EditMode.ANIMATION) {
+    nevilleGrid.setTime((nevilleGrid.time + 0.01 ) % 1.0);
+  }
+
   if (drawImage) {
     gridOne.drawImage();
     gridTwo.drawImage();
@@ -72,19 +78,13 @@ void draw() {
     nevilleGrid.drawImage();
   }
 
-  baseGrid.drawGrid();
-
-  gridOne.drawGrid();
-
-  gridTwo.drawGrid();
-
-  gridThree.drawGrid();
-  
-  if (mode == EditMode.ANIMATION) {
-    nevilleGrid.time = (nevilleGrid.time + 0.01 ) % 1.0;
+  if (drawGrid) {
+    baseGrid.drawGrid();
+    gridOne.drawGrid();
+    gridTwo.drawGrid();
+    gridThree.drawGrid();
+    nevilleGrid.drawGrid();
   }
-  
-  nevilleGrid.drawGrid();
 }
 
 Point[][] textureMappingPoints(Grid grid, PImage image) {
@@ -125,7 +125,7 @@ void mouseDragged() {
     selectedGrid.scaleByMouseDelta();
   } else if (mode == EditMode.TIME_SHIFT) {
     // Change the time for the Neville curve
-    nevilleGrid.time += 2.0 * float(mouseX - pmouseX) / width;
+    nevilleGrid.setTime(nevilleGrid.time + 2.0 * float(mouseX - pmouseX) / width);
   }
 }
 
@@ -158,6 +158,9 @@ void keyPressed() {
       break;
     case 'a':
       mode = EditMode.ANIMATION;
+      break;
+    case 'g':
+      drawGrid = !drawGrid;
       break;
     case 'p':
       drawImage = !drawImage;

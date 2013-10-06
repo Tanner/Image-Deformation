@@ -81,6 +81,8 @@ class Grid {
       
       endShape();
     }
+    
+    endShape();
   }
   
   void moveByMouseDelta() {
