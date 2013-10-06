@@ -143,8 +143,8 @@ void keyPressed() {
       }
       break;
     case '.':
-    mode = EditMode.TIME_SHIFT;
-    break;
+      mode = EditMode.TIME_SHIFT;
+      break;
     }
   }
 }
