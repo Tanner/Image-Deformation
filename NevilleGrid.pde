@@ -28,6 +28,10 @@ class NevilleGrid {
   void setTime(float t) {
     time = t;
     
+    update();
+  }
+   
+  void update() { 
     // Neville's Curve implementation from Lecture 7 notes page 5 section 3.4.
     for (int row = 0; row < grid.lines; row++) {
       for (int col = 0; col < grid.lines; col++) {

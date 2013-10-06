@@ -143,15 +143,23 @@ void mouseDragged() {
     selectedPoint.translate(mouseX - pmouseX, mouseY - pmouseY);
     
     selectedGrid.bezierGrid.updatePoints();
+    
+    nevilleGrid.update();
   } else if (mode == EditMode.TRANSLATE) {
     // Translate the points
     selectedGrid.moveByMouseDelta();
+    
+    nevilleGrid.update();
   } else if (mode == EditMode.ROTATE) {
     // Rotate the grid
     selectedGrid.rotateByMouseDelta();
+    
+    nevilleGrid.update();
   } else if (mode == EditMode.SCALE) {
     // Scale the grid
     selectedGrid.scaleByMouseDelta();
+    
+    nevilleGrid.update();
   } else if (mode == EditMode.TIME_SHIFT) {
     // Change the time for the Neville curve
     nevilleGrid.setTime(nevilleGrid.time + 2.0 * float(mouseX - pmouseX) / width);
