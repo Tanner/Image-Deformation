@@ -104,6 +104,8 @@ void draw() {
       gridOne.bezierGrid.drawGrid();
       gridTwo.bezierGrid.drawGrid();
       gridThree.bezierGrid.drawGrid();
+      
+      nevilleGrid.grid.bezierGrid.drawGrid();
     }
   }
 }

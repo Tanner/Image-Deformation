@@ -41,5 +41,7 @@ class NevilleGrid {
         grid.points[row][col] = firstPoint.linearInterpolationToPoint(secondPoint, time);
       }
     }
+    
+    grid.bezierGrid.updatePoints();
   }
 }
