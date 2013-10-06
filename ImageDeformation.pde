@@ -12,6 +12,10 @@ boolean drawGrid;
 boolean drawImage;
 boolean drawKeyframe;
 
+int bezierSamplingRate;
+boolean drawBezierGrid;
+boolean mapImageUsingBezier;
+
 final float PADDING = 10;
 final int GRID_SIZE = 100;
 final int GRID_LINES = 11; // Number of cells is GRID_LINES - 1
@@ -25,6 +29,10 @@ void setup() {
   drawGrid = true;
   drawImage = true;
   drawKeyframe = true;
+  
+  bezierSamplingRate = GRID_LINES - 1;
+  drawBezierGrid = false;
+  mapImageUsingBezier = false;
   
   float x = PADDING;
   float y = PADDING;
@@ -175,6 +183,18 @@ void keyPressed() {
       break;
     case 'k':
       drawKeyframe = !drawKeyframe;
+      break;
+    case '+':
+      bezierSamplingRate++;
+      break;
+    case '-':
+      bezierSamplingRate--;
+      break;
+    case 'm':
+      drawBezierGrid = !drawBezierGrid;
+      break;
+    case 'u':
+      mapImageUsingBezier = !mapImageUsingBezier;
       break;
     }
   }
