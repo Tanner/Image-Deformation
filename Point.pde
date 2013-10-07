@@ -1,3 +1,4 @@
+import java.util.Arrays;
 
 Point bezierPoint(Point a, Point b, Point c, float t) {
   Point p = a.linearInterpolationToPoint(b, t);
@@ -18,6 +19,34 @@ Point bezierPoint(Point a, Point b, Point c, Point d, Point e, float t) {
   Point q = bezierPoint(c, d, e, t);
   
   return p.linearInterpolationToPoint(q, t);
+}
+
+Point bezierPoint(Point[] points, float t) {
+  if (points.length == 3) {
+    return bezierPoint(points[0], points[1], points[2], t);
+  } else if (points.length == 4) {
+    return bezierPoint(points[0], points[1], points[2], points[3], t);
+  } else if (points.length == 5) {
+    return bezierPoint(points[0], points[1], points[2], points[3], points[4], t);
+  } else {
+    Point a, b;
+    
+    if (points.length % 2 == 0) {
+      // Overlap by two
+      int halfway = points.length / 2;
+      
+      a = bezierPoint(Arrays.copyOfRange(points, 0, halfway + 1), t);
+      b = bezierPoint(Arrays.copyOfRange(points, halfway - 1, points.length), t);
+    } else {
+      // Overlap by one
+      int halfway = points.length / 2;
+            
+      a = bezierPoint(Arrays.copyOfRange(points, 0, halfway + 1), t);
+      b = bezierPoint(Arrays.copyOfRange(points, halfway, points.length), t);
+    }
+    
+    return a.linearInterpolationToPoint(b, t);
+  }
 }
 
 class Point {
