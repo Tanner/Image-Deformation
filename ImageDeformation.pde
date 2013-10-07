@@ -97,6 +97,10 @@ void draw() {
     
     if (drawKeyframe) {
       nevilleGrid.drawGrid();
+      
+      if (drawBezierGrid) {
+        nevilleGrid.grid.bezierGrid.drawGrid();
+      }
     }
     
     if (drawBezierGrid) {
@@ -104,8 +108,6 @@ void draw() {
       gridOne.bezierGrid.drawGrid();
       gridTwo.bezierGrid.drawGrid();
       gridThree.bezierGrid.drawGrid();
-      
-      nevilleGrid.grid.bezierGrid.drawGrid();
     }
   }
 }
