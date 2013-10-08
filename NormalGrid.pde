@@ -7,6 +7,14 @@ class NormalGrid extends Grid {
     bezierGrid = new BezierGrid(this, #00FFFF);
   }
   
+  void drawImage(Grid baseGrid, PImage image, boolean drawWithBezierGrid) {
+    if (drawWithBezierGrid) {
+      this.bezierGrid.drawImage(baseGrid, image);
+    } else {
+      drawImage(baseGrid, image);
+    }
+  }
+  
   void moveByMouseDelta() {
     super.moveByMouseDelta();
     

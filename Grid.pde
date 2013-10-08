@@ -1,11 +1,10 @@
 abstract class Grid {
   int lines;
   Point[][] points;
-  Point[][] textureMappingPoints;
   boolean selected;
     
   color c;
-  PImage image;
+//  private PImage image;
   
   public Grid(float x, float y, float w, float h, int n, color c) {
     points = new Point[n][n];
@@ -23,6 +22,27 @@ abstract class Grid {
         points[row][col] = new Point(pointX, pointY);
       }
     }    
+  }
+
+  Point[][] textureMappingPoints(Grid baseGrid, PImage image) {
+//    if (mapImageUsingBezier && grid instanceof NormalGrid) {
+//      grid = ((NormalGrid) grid).bezierGrid;
+//    }
+    
+    Point[][] points = new Point[baseGrid.lines][baseGrid.lines];
+  
+    for (int row = 0; row < baseGrid.lines; row++) {
+      for (int col = 0; col < baseGrid.lines; col++) {
+        Point point = baseGrid.points[row][col];
+        
+        float x = map(point.x, PADDING, PADDING + image.width, 0.0, 1.0);
+        float y = map(point.y, PADDING, PADDING + image.height, 0.0, 1.0);
+    
+        points[row][col] = new Point(x, y);
+      }
+    }
+    
+    return points;
   }
   
   void drawGrid() {
@@ -56,10 +76,12 @@ abstract class Grid {
     }
   }
   
-  void drawImage() {
-    if (image == null || textureMappingPoints == null) {
+  void drawImage(Grid baseGrid, PImage image) {
+    if (image == null || points == null) {
       return;
     }
+    
+    Point[][] textureMappingPoints = textureMappingPoints(baseGrid, image);
     
     textureMode(NORMAL);
     beginShape(QUADS);

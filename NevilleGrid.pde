@@ -21,8 +21,8 @@ class NevilleGrid {
     grid.drawGrid();
   }
   
-  void drawImage() {
-    grid.drawImage();
+  void drawImage(Grid baseGrid, PImage image, boolean drawWithBezierGrid) {
+    grid.drawImage(baseGrid, image, drawWithBezierGrid);
   }
   
   void setTime(float t) {

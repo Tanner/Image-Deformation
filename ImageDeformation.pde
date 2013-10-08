@@ -49,13 +49,13 @@ void setup() {
   
   gridThree = new NormalGrid(x, y, GRID_SIZE, GRID_SIZE, GRID_LINES, #0000FF);
   
-  baseGrid.image = image;
-  gridOne.image = image;
-  gridTwo.image = image;
-  gridThree.image = image;
+//  baseGrid.image = image;
+//  gridOne.image = image;
+//  gridTwo.image = image;
+//  gridThree.image = image;
   
   nevilleGrid = new NevilleGrid(gridOne, gridTwo, gridThree, #DDDDDD);
-  nevilleGrid.grid.image = image;
+//  nevilleGrid.grid.image = image;
   
   selectGrid(baseGrid, true);
   mode = EditMode.EDIT_POINTS;
@@ -68,24 +68,30 @@ void draw() {
 
   image(image, PADDING, PADDING);
   
-  Point[][] points = textureMappingPoints(baseGrid, image);
-  gridOne.textureMappingPoints = points;
-  gridTwo.textureMappingPoints = points;
-  gridThree.textureMappingPoints = points;
-  
-  nevilleGrid.grid.textureMappingPoints = points;
+//  Point[][] points = textureMappingPoints(baseGrid, image);
+//  
+//  gridOne.textureMappingPoints = points;
+//  gridTwo.textureMappingPoints = points;
+//  gridThree.textureMappingPoints = points;
+//  
+//  nevilleGrid.grid.textureMappingPoints = points;
 
   if (mode == EditMode.ANIMATION) {
     nevilleGrid.setTime((nevilleGrid.time + 0.01) % 1.0);
   }
+  
+  Grid base = this.baseGrid;
+  if (mapImageUsingBezier) {
+    base = ((NormalGrid)baseGrid).bezierGrid;
+  }
 
   if (drawImage) {
-    gridOne.drawImage();
-    gridTwo.drawImage();
-    gridThree.drawImage();
+    gridOne.drawImage(base, image, mapImageUsingBezier);
+    gridTwo.drawImage(base, image, mapImageUsingBezier);
+    gridThree.drawImage(base, image, mapImageUsingBezier);
     
     if (drawKeyframe) {
-      nevilleGrid.drawImage();
+      nevilleGrid.drawImage(base, image, mapImageUsingBezier);
     }
   }
 
@@ -110,27 +116,6 @@ void draw() {
       gridThree.bezierGrid.drawGrid();
     }
   }
-}
-
-Point[][] textureMappingPoints(Grid grid, PImage image) {
-  if (mapImageUsingBezier && grid instanceof NormalGrid) {
-    grid = ((NormalGrid) grid).bezierGrid;
-  }
-  
-  Point[][] points = new Point[grid.lines][grid.lines];
-
-  for (int row = 0; row < grid.lines; row++) {
-    for (int col = 0; col < grid.lines; col++) {
-      Point point = grid.points[row][col];
-      
-      float x = map(point.x, PADDING, PADDING + image.width, 0.0, 1.0);
-      float y = map(point.y, PADDING, PADDING + image.height, 0.0, 1.0);
-  
-      points[row][col] = new Point(x, y);
-    }
-  }
-  
-  return points;
 }
 
 void mousePressed() {
